@@ -21,7 +21,7 @@ export class ActMovieService {
     try {
       let cont = 0;
       createActMovieDto.actor.map(async (item) => {
-        const res = await this.categoryRepository.insert({
+        await this.categoryRepository.insert({
           movie: createActMovieDto.movie,
           actor: item,
         });
@@ -82,7 +82,7 @@ export class ActMovieService {
           movie: updateActMovieDto.movie,
           actor: item,
         });
-        const update = await this.categoryRepository.update(id, res);
+        await this.categoryRepository.update(id, res);
         cont++;
       });
       return {

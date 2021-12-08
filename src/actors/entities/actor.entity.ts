@@ -1,15 +1,5 @@
 import { ActMovie } from 'src/act-movie/entities/act-movie.entity';
-import { MoviesActorsCagetory } from 'src/movies-cagetory/entities/movies-actors-cagetory.entity';
-import { Movie } from 'src/movies/entities/movie.entity';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Actor {
@@ -25,6 +15,7 @@ export class Actor {
   @Column()
   urlPhoto: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @OneToMany((type) => ActMovie, (actmode) => actmode.actor, {
     cascade: false,
   })

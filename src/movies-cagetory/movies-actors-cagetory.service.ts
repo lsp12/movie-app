@@ -22,7 +22,7 @@ export class MoviesActorsCagetoryService {
     try {
       let cont = 0;
       createMoviesActorsCagetoryDto.category.map((item) => {
-        const res = this.categoryRepository.insert({
+        this.categoryRepository.insert({
           movie: createMoviesActorsCagetoryDto.movie,
           cagetory: item,
         });
