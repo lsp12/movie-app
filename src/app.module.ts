@@ -23,7 +23,7 @@ import { ActMovieModule } from './act-movie/act-movie.module';
       password: PASSWORD || process.env.PASSWORD,
       database: DATABASE || process.env.DATABASE,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
     }),
     ActMovieModule,
   ],

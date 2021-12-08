@@ -42,7 +42,10 @@ export class MoviesActorsCagetoryService {
 
   async findAll(): Promise<ImacResponse> {
     try {
-      const res = await this.categoryRepository.find();
+      const res = await this.categoryRepository.find({
+        relations: ['movie', 'cagetory'],
+      });
+      console.log(res);
       return {
         res,
         error: null,

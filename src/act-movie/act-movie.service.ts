@@ -41,7 +41,9 @@ export class ActMovieService {
 
   async findAll(): Promise<IactmovieResponse> {
     try {
-      const res = await this.categoryRepository.find();
+      const res = await this.categoryRepository.find({
+        relations: ['movie', 'actor'],
+      });
       return {
         res,
         error: null,
