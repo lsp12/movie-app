@@ -20,8 +20,8 @@ export class ActMovieService {
   ): Promise<IactmovieResponse> {
     try {
       let cont = 0;
-      createActMovieDto.actor.map(async (item) => {
-        await this.categoryRepository.insert({
+      createActMovieDto.actor.map((item) => {
+        this.categoryRepository.insert({
           movie: createActMovieDto.movie,
           actor: item,
         });
