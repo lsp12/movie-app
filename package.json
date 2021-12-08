@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "author": "",
-  "private": true,
+  "private": false,
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -19,7 +19,6 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "heroku-postbuild": "npm build && node dist/main"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
