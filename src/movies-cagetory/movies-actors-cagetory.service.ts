@@ -42,12 +42,23 @@ export class MoviesActorsCagetoryService {
 
   async findAll(): Promise<ImacResponse> {
     try {
-      const res = await this.categoryRepository.find({
+      /* const res = await this.categoryRepository.find({
         relations: ['movie', 'cagetory'],
-      });
-      console.log(res);
+      }); */
+
+      const res: SelectQueryBuilder<any> = this.categoryRepository
+        .createQueryBuilder('movies_actors_cagetory')
+        .select('movies_actors_cagetory.movie', 'movie')
+        .innerJoinAndSelect('movies_actors_cagetory.movie', 'movie')
+        .innerJoinAndSelect('movies_actors_cagetory.cagetory', 'cagetory')
+        .groupBy('movies_actors_cagetory.movieId');
+
+      const res2 = await res.getRawMany();
+      const res3 = safeJsonStringify(res2);
+      const res4 = JSON.parse(res3);
+
       return {
-        res,
+        res: res4,
         error: null,
       };
     } catch (error) {

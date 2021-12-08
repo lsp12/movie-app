@@ -41,11 +41,20 @@ export class ActMovieService {
 
   async findAll(): Promise<IactmovieResponse> {
     try {
-      const res = await this.categoryRepository.find({
+      /* const res = await this.categoryRepository.find({
         relations: ['movie', 'actor'],
-      });
+      }); */
+      const res: SelectQueryBuilder<any> = await this.categoryRepository
+        .createQueryBuilder('actmovie')
+        .leftJoinAndSelect('actmovie.movie', 'movie')
+        .leftJoinAndSelect('actmovie.actor', 'actor')
+        .groupBy('actmovie.movie');
+      const result = await res.getMany();
+      const result2 = safeJsonStringify(result);
+      const result3 = JSON.parse(result2);
+
       return {
-        res,
+        res: result3,
         error: null,
       };
     } catch (error) {
@@ -139,7 +148,8 @@ export class ActMovieService {
         .createQueryBuilder('actmovie')
         .leftJoinAndSelect('actmovie.movie', 'movie')
         .leftJoinAndSelect('actmovie.actor', 'actor')
-        .where('actmovie.actor = :id', { id });
+        .where('actmovie.actor = :id', { id })
+        .groupBy('actmovie.movie');
       const result = await res.getMany();
       const result2 = safeJsonStringify(result);
       const result3 = JSON.parse(result2);
