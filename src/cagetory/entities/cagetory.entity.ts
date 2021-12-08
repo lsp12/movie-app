@@ -9,6 +9,7 @@ export class Cagetory {
   @Column()
   name_category: string;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @OneToMany((type) => MoviesActorsCagetory, (mac) => mac.cagetory, {
     cascade: false,
   })
