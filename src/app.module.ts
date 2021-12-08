@@ -18,7 +18,7 @@ import { ActMovieModule } from './act-movie/act-movie.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: HOST || process.env.HOST,
-      port: PORT || parseInt(process.env.PORT),
+      port: PORT || parseInt(process.env.PORTBASE),
       username: USERNAME || process.env.USERNAME,
       password: PASSWORD || process.env.PASSWORD,
       database: DATABASE || process.env.DATABASE,
