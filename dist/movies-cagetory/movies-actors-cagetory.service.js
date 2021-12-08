@@ -46,12 +46,18 @@ let MoviesActorsCagetoryService = class MoviesActorsCagetoryService {
     }
     async findAll() {
         try {
-            const res = await this.categoryRepository.find({
-                relations: ['movie', 'cagetory'],
-            });
-            console.log(res);
+            const res = this.categoryRepository
+                .createQueryBuilder('movies_actors_cagetory')
+                .select('movies_actors_cagetory.movie', 'movie')
+                .innerJoinAndSelect('movies_actors_cagetory.movie', 'movie')
+                .innerJoinAndSelect('movies_actors_cagetory.cagetory', 'cagetory')
+                .groupBy('movies_actors_cagetory.cagetoryId');
+            const res2 = await res.getRawMany();
+            const res3 = safeJsonStringify(res2);
+            const res4 = JSON.parse(res3);
+            console.log(res4);
             return {
-                res,
+                res: res4,
                 error: null,
             };
         }

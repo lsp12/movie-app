@@ -48,7 +48,7 @@ export class ActMovieService {
         .createQueryBuilder('actmovie')
         .leftJoinAndSelect('actmovie.movie', 'movie')
         .leftJoinAndSelect('actmovie.actor', 'actor')
-        .groupBy('actmovie.movie');
+        .groupBy('actmovie.actorId');
       const result = await res.getMany();
       const result2 = safeJsonStringify(result);
       const result3 = JSON.parse(result2);

@@ -25,8 +25,8 @@ let ActMovieService = class ActMovieService {
     async create(createActMovieDto) {
         try {
             let cont = 0;
-            createActMovieDto.actor.map(async (item) => {
-                await this.categoryRepository.insert({
+            createActMovieDto.actor.map((item) => {
+                this.categoryRepository.insert({
                     movie: createActMovieDto.movie,
                     actor: item,
                 });
@@ -46,11 +46,16 @@ let ActMovieService = class ActMovieService {
     }
     async findAll() {
         try {
-            const res = await this.categoryRepository.find({
-                relations: ['movie', 'actor'],
-            });
+            const res = await this.categoryRepository
+                .createQueryBuilder('actmovie')
+                .leftJoinAndSelect('actmovie.movie', 'movie')
+                .leftJoinAndSelect('actmovie.actor', 'actor')
+                .groupBy('actmovie.actorId');
+            const result = await res.getMany();
+            const result2 = safeJsonStringify(result);
+            const result3 = JSON.parse(result2);
             return {
-                res,
+                res: result3,
                 error: null,
             };
         }
@@ -141,7 +146,8 @@ let ActMovieService = class ActMovieService {
                 .createQueryBuilder('actmovie')
                 .leftJoinAndSelect('actmovie.movie', 'movie')
                 .leftJoinAndSelect('actmovie.actor', 'actor')
-                .where('actmovie.actor = :id', { id });
+                .where('actmovie.actor = :id', { id })
+                .groupBy('actmovie.movie');
             const result = await res.getMany();
             const result2 = safeJsonStringify(result);
             const result3 = JSON.parse(result2);
