@@ -8,7 +8,6 @@ import { DATABASE, HOST, PASSWORD, PORT, USERNAME } from './config/constant';
 import { MoviesActorsCagetoryModule } from './movies-cagetory/movies-actors-cagetory.module';
 import { CagetoryModule } from './cagetory/cagetory.module';
 import { ActMovieModule } from './act-movie/act-movie.module';
-
 @Module({
   imports: [
     MoviesModule,
